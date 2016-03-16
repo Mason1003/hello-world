@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>ENG1003 Week 2 Prac exercisetemplate</title>
+		<style>
+			p {
+				padding: 5em;
+				font-family: arial;
+				font-size: 2em;
+				color: rgb(0, 0, 255);
+			}
+		</style>
+	</head>
+	
+	<body>
+		<p>In Chrome, hit F12 to view the Console.</p>
+	
+		<script>
+           
+			var number1, number2;
+ 
+            // RHS generates a random integer between 1 and 10 inclusive
+            number1 = Math.floor((Math.random() * 10) + 1);
+            // RHS generates a random integer between 1 and 10 inclusive
+            number2 = Math.floor((Math.random() * 10) + 1);
+ 
+            console.log("number1 = " + number1 + " number2 = " + number2);
+            var a=number1; // save a tempory number
+            number1=number2;
+            number2 = a;// call up the rempory number which equals to the first number hence swap the number
+ 
+            console.log("number1 = " + number1 + " number2 = " + number2);
+		</script>
+	</body>
+</html>
