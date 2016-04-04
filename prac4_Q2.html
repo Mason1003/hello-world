@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>ENG1003 week 4 prac exercise template</title>
+	<style>
+		#outputArea{
+			padding: .25em;
+			border: solid black 2px;
+			margin: 3em;
+			
+			height: 20em;
+			width: 20em;
+			
+			overflow-y: scroll;
+			
+			font-family: consolas, 'courier new', monospace;
+			font-size: 1em;
+			color: rgb(50, 50, 250);
+			
+			background-color: rgb(225,225,225) ;
+		}
+	</style>
+
+	</head>
+	
+	<body>
+	<!-- 	-->		
+		<div id="outputArea"></div>
+
+
+		<script>
+			//PASTE YOUR CODE BELOW THIS LINE
+                var outputAreaRef = document.getElementById("outputArea");
+                var output = "";
+            
+                var keyboard = new property ("black","10cm x 5cm","$100","razor")
+                
+                
+                outputObject(keyboard)
+                outputAreaRef.innerHTML= output;
+            
+            function property (colour,size,price,manufacurer)
+            {
+                this.colour=colour
+                this.size=size
+                this.price=price
+                this.manufacurer=manufacurer
+            }
+            function outputObject(object)
+            {
+                for(var property in object)
+                    {
+                        output += "keyboard property:"
+                        output += property + "=" + object[property]+"</br>";
+                    }
+                output += "</br>";
+            }
+        
+            
+
+		</script>
+	</body>
+</html>
