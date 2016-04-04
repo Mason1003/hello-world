@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ENG1003 week 3 prac exercise template</title>
+        <style>
+            #outputArea {
+                padding: .25em;
+                border: solid black 2px;
+                margin: 3em;
+            
+                height: 20em;
+                width: 20em;
+            
+                overflow-y: scroll;
+            
+                font-family: consolas, 'courier new', monospace;
+                font-size: 1em;
+                color: rgb(50, 50, 250);
+            
+                background-color: rgb(225,225,225) ;
+            }
+        </style>
+
+    </head>
+    
+    <body>
+        <div id="outputArea"></div>
+
+        <script>
+            var outputAreaRef = document.getElementById("outputArea");
+            var diceroll;
+            var num1=0;
+            var num2=0;
+            var num3=0;
+            var num4=0;
+            var num5=0;
+            var num6=0;
+            var i=0;
+            while (i<60000)
+                { diceroll=Math.floor((Math.random() * 6) + 1)
+                i++
+                if (diceroll===1)
+                    {num1= num1 +1;}
+                else if (diceroll ===2)
+                    {num2 = num2 +1;}
+                else if (diceroll ===3)
+                    {num3 = num3 +1;}
+                else if (diceroll ===4)
+                    {num4 = num4 +1;}
+                else if (diceroll ===5)
+                    {num5 = num5 +1;}
+                else 
+                    {num6 = num6 +1;}
+                }
+            var output = ("number1 = "+num1 +"</br>"+"number2 = "+num2+"</br>"+"number3 = "+num3+"</br>"+"number4 = "+num4+"</br>"+"number5 = "+num5+"</br>"+"number6 = "+num6);
+            
+            outputAreaRef.innerHTML = output;
+
+
+        </script>
+    </body>
+</html>
