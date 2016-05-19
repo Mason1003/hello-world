@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>ENG1003 Prac Week 11 &mdash; Logic and JavaScript</title>
+    </head>
+ 
+    <body>
+        <h1>Week 11 prac: Truth Table for [A OR B]</h1>
+        <hr/>
+	<div id="outputArea"></div> 
+        <script>
+
+            // TODO: Insert your code here. 
+
+var outputAreaRef = document.getElementById("outputArea");
+var booleanValues = [0, 1];
+var tableHTML = "<table border=\"1\"><tr><th>A</th><th>B</th><th>A || B</th></tr>";
+
+for (var aIndex = 0; aIndex < booleanValues.length; ++aIndex)
+{
+	for (var bIndex = 0; bIndex < booleanValues.length; ++bIndex)
+	{
+		var A = booleanValues[aIndex];
+		var B = booleanValues[bIndex];
+		
+		// Absorption:	A && B = A
+		// We would expect result to always equal A.
+		var result = A || B;
+		
+		tableHTML += "<tr>";
+		tableHTML += "<td>" + A + "</td>";
+		tableHTML += "<td>" + B + "</td>";
+		tableHTML += "<td>" + result + "</td>";
+		tableHTML += "</tr>";
+
+	}
+}
+
+tableHTML += "</table>";
+outputAreaRef.innerHTML = tableHTML;
+
+        </script>
+    </body>
+</html>
