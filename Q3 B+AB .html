@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>ENG1003 Prac Week 11 &mdash; Logic and JavaScript</title>
+    </head>
+ 
+    <body>
+        <h1>Week 11 prac: Truth Table for [BC+BC'+BA]</h1>
+        <hr/>
+	<div id="outputArea"></div> 
+        <script>
+
+            // TODO: Insert your code here. 
+var outputAreaRef = document.getElementById("outputArea");
+var states = [0, 1];
+var tableHTML = "<table border=\"1\"><tr><th>A</th><th>B</th><th>C</th><th>BC+BC'+BA</th><th>B</th></tr>";
+
+for (var aIndex = 0; aIndex < states.length; ++aIndex)
+{
+	for (var bIndex = 0; bIndex < states.length; ++bIndex)
+	{
+		for (var cIndex = 0; cIndex < states.length; ++cIndex)
+		{
+			var A = states[aIndex];
+			var B = states[bIndex];
+			var C = states[cIndex];
+			var Cdash = "0"
+			if (C ===1){
+				Cdash = 0
+			}
+			if (C===0)
+			{
+				Cdash =1
+			}
+				
+			var result =(B&&C) || (B&&Cdash) || (B&&A) ;
+            var result1=B;
+			tableHTML += "<tr>";
+			tableHTML += "<td>" + A + "</td>";
+			tableHTML += "<td>" + B + "</td>";
+			tableHTML += "<td>" + C + "</td>";
+		    tableHTML += "<td>" + result + "</td>";
+			tableHTML += "<td>" + result1 + "</td>";
+			tableHTML += "</tr>";
+		}
+	}
+}
+
+tableHTML += "</table>";
+outputAreaRef.innerHTML = tableHTML;
+
+        </script>
+    </body>
+</html>
