@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--
+ *
+ * Open Flights web app example
+ * 
+ * Copyright (c) 2015-2016  Monash University
+ *
+ * Written by Michael Wybrow
+ *
+ * ----------------------------------------------------------------------------
+ * The 'flightData' object Contains information from OpenFlights.org, which is 
+ * made available here under the Open Database License (ODbL). - See more at:
+ *    http://opendatacommons.org/licenses/odbl/1.0/
+ * ----------------------------------------------------------------------------
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+-->
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Melbourne Flights</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <style>
+    .full-width{
+        width: 100%;
+    }
+    </style>
+  </head>
+  <body>
+  
+  <!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Melbourne Flights</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+    </div>
+  </header>
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <table class="full-width mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+              <tbody id = "flights-list">
+              </tbody>
+            </table>
+        </div>
+    </main>
+    </div>
+    
+
+    <script>
+    var flightsListElement = document.getElementById('flights-list');
+    var routes = [];
+ 
+    // Make the request
+    var data = {
+        airline: "QF",
+        sourceAirport: "LAX",
+        callback: "routesResponse"
+    };    
+    jsonpRequest("http://eng1003.eng.monash.edu/OpenFlights/routes/", data);
+     
+    function jsonpRequest(url, data)
+    {
+        // Build URL parameters from data object.
+        var params = "";
+        // For each key in data object...
+        for (var key in data)
+        {
+            if (data.hasOwnProperty(key))
+            {
+                if (params.length == 0)
+                {
+                    // First parameter starts with '?'
+                    params += "?";
+                }
+                else
+                {
+                    // Subsequent parameter separated by '&'
+                    params += "&";
+                }
+
+                var encodedKey = encodeURIComponent(key);
+                var encodedValue = encodeURIComponent(data[key]);
+
+                params += encodedKey + "=" + encodedValue;
+             }
+        }
+        var script = document.createElement('script');
+        script.src = url + params;
+        document.body.appendChild(script);
+    }
+  
+    function routesResponse(routesArray)
+    {
+        routes = routesArray;
+        
+        // List view section heading: Flight list
+        var listHTML = "";
+
+        //   PART 1:
+        // ADD CODE HERE TO ITERATE OVER ROUTES ARRAY AND CREATE
+        // LIST ITEMS FOR EACH ROUTE (AS BELOW)
+    for (var i=0;i<routes.length;i++)
+	{
+	    console.log(routes[i].sourceAirport)
+	
+	
+
+        // HTML Format of list item is:
+        //   <tr> <td onmousedown=\"listRowTapped("+i+")\" class=\"full-width mdl-data-table__cell--non-numeric\">"[SOURCE AIRPORT] -> [DEST AIRPORT]
+        //   <div class="subtitle">[AIRLINE CODE], Stops: [STOPS]</div></td></tr>
+        
+        listHTML += "<tr> <td onmousedown=\"listRowTapped("+i+")\" class=\"full-width mdl-data-table__cell--non-numeric\">" + routes[i].sourceAirport + " &rarr; " + routes[i].destinationAirport;
+        listHTML += "<div class=\"subtitle\">" + routes[i].airlineId + ", Stops: " + routes[i].stops +"</div></td></tr>";
+           
+    }
+        // Insert the list view elements into the flights list.
+        flightsListElement.innerHTML = listHTML;
+
+    }
+    
+    function airportResponse(airport)
+    {
+        var message = "Name: " + airport.name + "\n";
+        message += "Location: " + airport.city + ", " + airport.country;
+        alert(message);
+    }
+ 
+    function listRowTapped(routeIndex)
+    {
+        
+        console.log(routes[routeIndex].destinationAirport + "(" + routes[routeIndex].destinationAirportId + ")");
+
+        //   PART 2:
+        // ADD CODE HERE TO REQUEST AIRPORT INFORMATION
+         var data = {
+        id : routes[routeIndex].destinationAirportId,
+        callback: "airportResponse"
+    };    
+    jsonpRequest("http://eng1003.eng.monash.edu/OpenFlights/airport/", data);
+    }
+
+
+        
+    </script>
+  </body>
+</html>
