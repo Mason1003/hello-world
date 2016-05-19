@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- 
+ * 
+ * ENG1003 Data Structures Analysis and Performance activity
+ *  
+ * Copyright (c) 2015-2016  Monash University 
+ * 
+ * Written by Marc Cheong
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy 
+ * of this software and associated documentation files (the "Software"), to deal 
+ * in the Software without restriction, including without limitation the rights 
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+ * copies of the Software, and to permit persons to whom the Software is 
+ * furnished to do so, subject to the following conditions: 
+ *  
+ * The above copyright notice and this permission notice shall be included in 
+ * all copies or substantial portions of the Software. 
+ *  
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
+ * THE SOFTWARE. 
+ * 
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ENG1003 Data Structures Analysis and Performance activity</title>
+        <style>
+            #outputArea {
+                padding: .25em;
+                border: solid black 2px;
+                margin: 3em;
+            
+                height: 20em;
+                width: 20em;
+            
+                overflow-y: scroll;
+            
+                font-family: consolas, 'courier new', monospace;
+                font-size: 1em;
+                color: rgb(50, 50, 250);
+            
+                background-color: rgb(225,225,225) ;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <h1>Performance of arrays vs linked list random access...</h1>
+        
+        <form>
+            <button id="startButton" type="button" onClick="startTest();">Start random access test...</button>
+        </form>
+        <div id="outputArea"></div>
+                
+        <script>
+            // maximum number of elements...
+            var N = 100000;
+            
+            // These will be constructed in your setupArrays
+            var testArray;
+            var testList;
+            setupArrays();
+            
+          
+            
+            
+            // List testing code - Uncomment to test!
+            
+             //We test it by making a new list and adding 4 nodes...
+            var list = new List();
+            list.addNode(85); // position 0
+            list.addNode(37); // position 1
+            list.addNode(42); // position 2
+            list.addNode(63); // position 3
+            // We console log an element to test...
+            console.log(list.getElement(2).data);
+            
+            
+            
+            // This is the skeleton code for the linked list class.
+            function List()
+            {
+                // TODO: Add attributes.
+                
+		// TODO: Add addNode() method.
+
+		// TODO: Write getElement() method.
+                var first = null;
+                var last = null;
+ 
+     
+        this.addNode = function(value)
+                        {
+        var node = {
+            data: value, 
+            next: null
+        };
+         
+        if (first === null)
+        {
+            first = node;
+            last = node;
+        }
+        else
+        {
+            last.next = node;
+            last = node;
+        }
+    }
+     
+            }
+
+            // This function is called when the page loads to set up an array 
+            // and linked list with N elements
+            function setupArrays()
+            {
+                // TODO: Add code...
+
+                // Inform user once arrays/linked list has been set up.
+                outputArea.innerHTML += "Array + List with " + N + " elements set up and ready to go.<br/>"; 
+            }
+
+
+            function startTest() 
+            {
+                alert("Test starting - it may take up to 2-3 minutes, please wait!");
+                // You need to understand how this works...
+
+                testArrayAccess();
+                outputArea.innerHTML += "Random access for arrays - completed.<br/>";
+
+                testLinkedListAccess();
+                outputArea.innerHTML += "Random access for linked lists - completed.<br/>";
+                outputArea.innerHTML += "Testing ended. You may now stop the Google Chrome Profiler and review the results.";
+            }
+            
+            function testArrayAccess()
+            {
+                // You need to understand how this works...
+
+                console.log("***Array access starts here***");
+                
+                // Performing N runs...
+                // Question is, why do we need such a large number to test?
+                for (var i = 0; i < N; i++)
+                {
+                    var randomPos = Math.round(Math.random() * N);
+                    var value = testArray[randomPos];
+                }
+            }
+            
+            function testLinkedListAccess()
+            {
+                // You need to understand how this works...
+
+                console.log("***Linked list access starts here***");
+                
+                // Performing N runs...
+                // Question is, why do we need such a large number to test?
+                for (var i = 0; i < N; i++)
+                {
+                    var randomPos = Math.round(Math.random() * N);
+                    var value = testList.getElement(randomPos).data;
+                }
+            }
+
+          </script>
+    
+</body></html>
+
